@@ -40,20 +40,21 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.renameSelectedButton = new System.Windows.Forms.Button();
-            this.renameAllButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.photoNameLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dateLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cManLabel = new System.Windows.Forms.Label();
+            this.cModelText = new System.Windows.Forms.TextBox();
+            this.cManText = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cModelLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.changeMetadataButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.renameAllButton = new System.Windows.Forms.Button();
+            this.renameSelectedButton = new System.Windows.Forms.Button();
             this.newPhotoNameLabel = new System.Windows.Forms.Label();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -61,10 +62,10 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // chooseDirLabel
@@ -105,14 +106,15 @@
             // 
             // loadDirectory
             // 
-            this.loadDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadDirectory.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.loadDirectory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.loadDirectory.Font = new System.Drawing.Font("Source Code Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loadDirectory.Location = new System.Drawing.Point(362, 4);
+            this.loadDirectory.Location = new System.Drawing.Point(362, 3);
             this.loadDirectory.Name = "loadDirectory";
-            this.loadDirectory.Size = new System.Drawing.Size(42, 21);
+            this.loadDirectory.Size = new System.Drawing.Size(42, 24);
             this.loadDirectory.TabIndex = 7;
             this.loadDirectory.Text = "...";
-            this.loadDirectory.UseVisualStyleBackColor = true;
+            this.loadDirectory.UseVisualStyleBackColor = false;
             this.loadDirectory.Click += new System.EventHandler(this.loadDirectory_Click);
             // 
             // openFileDialog1
@@ -121,6 +123,7 @@
             // 
             // loadFilenames
             // 
+            this.loadFilenames.BackColor = System.Drawing.SystemColors.ControlLight;
             this.loadFilenames.Dock = System.Windows.Forms.DockStyle.Fill;
             this.loadFilenames.Font = new System.Drawing.Font("Source Code Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loadFilenames.Location = new System.Drawing.Point(3, 3);
@@ -128,7 +131,7 @@
             this.loadFilenames.Size = new System.Drawing.Size(296, 24);
             this.loadFilenames.TabIndex = 8;
             this.loadFilenames.Text = "Load photos";
-            this.loadFilenames.UseVisualStyleBackColor = true;
+            this.loadFilenames.UseVisualStyleBackColor = false;
             this.loadFilenames.Click += new System.EventHandler(this.loadFilenames_Click);
             // 
             // recursiveCheckBox
@@ -211,60 +214,6 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(407, 30);
             this.tableLayoutPanel3.TabIndex = 11;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.renameAllButton, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.renameSelectedButton, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 593);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(403, 30);
-            this.tableLayoutPanel1.TabIndex = 12;
-            // 
-            // renameSelectedButton
-            // 
-            this.renameSelectedButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.renameSelectedButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.renameSelectedButton.Enabled = false;
-            this.renameSelectedButton.Font = new System.Drawing.Font("Source Code Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.renameSelectedButton.Location = new System.Drawing.Point(204, 3);
-            this.renameSelectedButton.Name = "renameSelectedButton";
-            this.renameSelectedButton.Size = new System.Drawing.Size(196, 24);
-            this.renameSelectedButton.TabIndex = 11;
-            this.renameSelectedButton.Text = "Rename selected";
-            this.renameSelectedButton.UseVisualStyleBackColor = true;
-            this.renameSelectedButton.Click += new System.EventHandler(this.renameSelectedButton_Click);
-            // 
-            // renameAllButton
-            // 
-            this.renameAllButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.renameAllButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.renameAllButton.Enabled = false;
-            this.renameAllButton.Font = new System.Drawing.Font("Source Code Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.renameAllButton.Location = new System.Drawing.Point(3, 3);
-            this.renameAllButton.Name = "renameAllButton";
-            this.renameAllButton.Size = new System.Drawing.Size(195, 24);
-            this.renameAllButton.TabIndex = 10;
-            this.renameAllButton.Text = "Rename all";
-            this.renameAllButton.UseVisualStyleBackColor = true;
-            this.renameAllButton.Click += new System.EventHandler(this.renameAllButton_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.WindowText;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(403, 488);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.BackColor = System.Drawing.SystemColors.Highlight;
@@ -281,12 +230,22 @@
             this.tableLayoutPanel2.RowCount = 5;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(409, 626);
             this.tableLayoutPanel2.TabIndex = 13;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.WindowText;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 21);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(403, 476);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // photoNameLabel
             // 
@@ -303,24 +262,74 @@
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.BackColor = System.Drawing.SystemColors.Highlight;
-            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnCount = 3;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Controls.Add(this.cModelLabel, 1, 2);
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel6.Controls.Add(this.cModelText, 1, 2);
+            this.tableLayoutPanel6.Controls.Add(this.cManText, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel6.Controls.Add(this.cManLabel, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.dateLabel, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.changeMetadataButton, 2, 0);
+            this.tableLayoutPanel6.Controls.Add(this.dateTimePicker, 1, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 515);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 503);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 3;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(403, 54);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(403, 66);
             this.tableLayoutPanel6.TabIndex = 14;
+            // 
+            // cModelText
+            // 
+            this.cModelText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cModelText.Enabled = false;
+            this.cModelText.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cModelText.Location = new System.Drawing.Point(120, 44);
+            this.cModelText.Margin = new System.Windows.Forms.Padding(0);
+            this.cModelText.Name = "cModelText";
+            this.cModelText.Size = new System.Drawing.Size(201, 21);
+            this.cModelText.TabIndex = 7;
+            this.cModelText.TextChanged += new System.EventHandler(this.metadataBoxes_TextChanged);
+            // 
+            // cManText
+            // 
+            this.cManText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cManText.Enabled = false;
+            this.cManText.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cManText.Location = new System.Drawing.Point(120, 22);
+            this.cManText.Margin = new System.Windows.Forms.Padding(0);
+            this.cManText.Name = "cManText";
+            this.cManText.Size = new System.Drawing.Size(201, 21);
+            this.cManText.TabIndex = 6;
+            this.cManText.TextChanged += new System.EventHandler(this.metadataBoxes_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label3.Location = new System.Drawing.Point(3, 44);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(114, 22);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Camera model:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label2.Location = new System.Drawing.Point(3, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(114, 22);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Camera manufacturer:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
             // 
@@ -329,67 +338,71 @@
             this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 17);
+            this.label1.Size = new System.Drawing.Size(114, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "Date taken:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // dateLabel
+            // changeMetadataButton
             // 
-            this.dateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateLabel.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateLabel.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dateLabel.Location = new System.Drawing.Point(204, 0);
-            this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(196, 17);
-            this.dateLabel.TabIndex = 1;
-            this.dateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.changeMetadataButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.changeMetadataButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.changeMetadataButton.Enabled = false;
+            this.changeMetadataButton.Font = new System.Drawing.Font("Source Code Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.changeMetadataButton.Location = new System.Drawing.Point(324, 0);
+            this.changeMetadataButton.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.changeMetadataButton.Name = "changeMetadataButton";
+            this.tableLayoutPanel6.SetRowSpan(this.changeMetadataButton, 3);
+            this.changeMetadataButton.Size = new System.Drawing.Size(76, 66);
+            this.changeMetadataButton.TabIndex = 8;
+            this.changeMetadataButton.Text = "Change metadata";
+            this.changeMetadataButton.UseVisualStyleBackColor = false;
+            this.changeMetadataButton.Click += new System.EventHandler(this.changeMetadataButton_Click);
             // 
-            // label2
+            // tableLayoutPanel1
             // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label2.Location = new System.Drawing.Point(3, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(195, 17);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Camera manufacturer:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.renameAllButton, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.renameSelectedButton, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 593);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(403, 30);
+            this.tableLayoutPanel1.TabIndex = 12;
             // 
-            // cManLabel
+            // renameAllButton
             // 
-            this.cManLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cManLabel.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cManLabel.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.cManLabel.Location = new System.Drawing.Point(204, 17);
-            this.cManLabel.Name = "cManLabel";
-            this.cManLabel.Size = new System.Drawing.Size(196, 17);
-            this.cManLabel.TabIndex = 3;
-            this.cManLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.renameAllButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.renameAllButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.renameAllButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.renameAllButton.Enabled = false;
+            this.renameAllButton.Font = new System.Drawing.Font("Source Code Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.renameAllButton.Location = new System.Drawing.Point(3, 3);
+            this.renameAllButton.Name = "renameAllButton";
+            this.renameAllButton.Size = new System.Drawing.Size(195, 24);
+            this.renameAllButton.TabIndex = 10;
+            this.renameAllButton.Text = "Rename all";
+            this.renameAllButton.UseVisualStyleBackColor = false;
+            this.renameAllButton.Click += new System.EventHandler(this.renameAllButton_Click);
             // 
-            // label3
+            // renameSelectedButton
             // 
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label3.Location = new System.Drawing.Point(3, 34);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(195, 20);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Camera model:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cModelLabel
-            // 
-            this.cModelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cModelLabel.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cModelLabel.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.cModelLabel.Location = new System.Drawing.Point(204, 34);
-            this.cModelLabel.Name = "cModelLabel";
-            this.cModelLabel.Size = new System.Drawing.Size(196, 20);
-            this.cModelLabel.TabIndex = 5;
-            this.cModelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.renameSelectedButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.renameSelectedButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.renameSelectedButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.renameSelectedButton.Enabled = false;
+            this.renameSelectedButton.Font = new System.Drawing.Font("Source Code Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.renameSelectedButton.Location = new System.Drawing.Point(204, 3);
+            this.renameSelectedButton.Name = "renameSelectedButton";
+            this.renameSelectedButton.Size = new System.Drawing.Size(196, 24);
+            this.renameSelectedButton.TabIndex = 11;
+            this.renameSelectedButton.Text = "Rename selected";
+            this.renameSelectedButton.UseVisualStyleBackColor = false;
+            this.renameSelectedButton.Click += new System.EventHandler(this.renameSelectedButton_Click);
             // 
             // newPhotoNameLabel
             // 
@@ -401,6 +414,23 @@
             this.newPhotoNameLabel.Size = new System.Drawing.Size(403, 18);
             this.newPhotoNameLabel.TabIndex = 15;
             this.newPhotoNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Checked = false;
+            this.dateTimePicker.Cursor = System.Windows.Forms.Cursors.Default;
+            this.dateTimePicker.CustomFormat = "dd.MM.yyyy HH:mm:ss";
+            this.dateTimePicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker.Enabled = false;
+            this.dateTimePicker.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker.Location = new System.Drawing.Point(120, 0);
+            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(0);
+            this.dateTimePicker.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(201, 21);
+            this.dateTimePicker.TabIndex = 9;
+            this.dateTimePicker.ValueChanged += new System.EventHandler(this.metadataBoxes_TextChanged);
             // 
             // Form1
             // 
@@ -418,10 +448,11 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -447,13 +478,14 @@
         private System.Windows.Forms.Button renameSelectedButton;
         private System.Windows.Forms.Label photoNameLabel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.Label cModelLabel;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label cManLabel;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label dateLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label newPhotoNameLabel;
+        private System.Windows.Forms.TextBox cModelText;
+        private System.Windows.Forms.TextBox cManText;
+        private System.Windows.Forms.Button changeMetadataButton;
+        private System.Windows.Forms.DateTimePicker dateTimePicker;
     }
 }
 
