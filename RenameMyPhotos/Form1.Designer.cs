@@ -50,11 +50,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.changeMetadataButton = new System.Windows.Forms.Button();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.renameAllButton = new System.Windows.Forms.Button();
             this.renameSelectedButton = new System.Windows.Forms.Button();
             this.newPhotoNameLabel = new System.Windows.Forms.Label();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -359,6 +359,23 @@
             this.changeMetadataButton.UseVisualStyleBackColor = false;
             this.changeMetadataButton.Click += new System.EventHandler(this.changeMetadataButton_Click);
             // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Checked = false;
+            this.dateTimePicker.Cursor = System.Windows.Forms.Cursors.Default;
+            this.dateTimePicker.CustomFormat = "dd.MM.yyyy HH:mm:ss";
+            this.dateTimePicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker.Enabled = false;
+            this.dateTimePicker.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker.Location = new System.Drawing.Point(120, 0);
+            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(0);
+            this.dateTimePicker.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(201, 21);
+            this.dateTimePicker.TabIndex = 9;
+            this.dateTimePicker.ValueChanged += new System.EventHandler(this.metadataBoxes_TextChanged);
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -414,23 +431,6 @@
             this.newPhotoNameLabel.Size = new System.Drawing.Size(403, 18);
             this.newPhotoNameLabel.TabIndex = 15;
             this.newPhotoNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Checked = false;
-            this.dateTimePicker.Cursor = System.Windows.Forms.Cursors.Default;
-            this.dateTimePicker.CustomFormat = "dd.MM.yyyy HH:mm:ss";
-            this.dateTimePicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateTimePicker.Enabled = false;
-            this.dateTimePicker.Font = new System.Drawing.Font("Source Sans Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker.Location = new System.Drawing.Point(120, 0);
-            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(0);
-            this.dateTimePicker.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(201, 21);
-            this.dateTimePicker.TabIndex = 9;
-            this.dateTimePicker.ValueChanged += new System.EventHandler(this.metadataBoxes_TextChanged);
             // 
             // Form1
             // 

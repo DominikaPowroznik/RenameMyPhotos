@@ -17,8 +17,7 @@ namespace RenameMyPhotos
 {
     public partial class Form1 : Form
     {
-        private string currentDirectory = "";
-        private string currentFilePath = "";
+        private PhotoInfo selectedPhoto;
 
         public Form1()
         {
@@ -87,74 +86,9 @@ namespace RenameMyPhotos
             ClearView();
             if (listBox1.SelectedItem != null)
             {
-                currentFilePath = listBox1.SelectedItem.ToString();
-                LoadPhotoAndMetadata(currentFilePath);
-                renameSelectedButton.Enabled = true;
+                selectedPhoto = new PhotoInfo(listBox1.SelectedItem.ToString());
+                SetView();
             }
-            else
-            {
-                renameSelectedButton.Enabled = false;
-            }
-        }
-
-        private void LoadPhotoAndMetadata(string path)
-        {
-            //ShowPropertyItems(path);
-            //ChangeDateTaken(path);
-            //CopyPropertyItems(path);
-
-            string[] pathParts = path.Split('\\');
-
-            string photoName = pathParts[pathParts.Length - 1];
-            photoNameLabel.Text = photoName;
-
-            string tempPhotoPath = path.Insert(path.LastIndexOf('.'), "_temp");
-            File.Copy(path, tempPhotoPath);
-
-            using (FileStream fs = new FileStream(tempPhotoPath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.DeleteOnClose)) //read
-            {
-                pictureBox1.Image = Image.FromStream(fs);
-            }
-
-            string dateTaken, cMan, cModel;
-
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                BitmapSource img = BitmapFrame.Create(fs);
-                BitmapMetadata md = (BitmapMetadata)img.Metadata;
-
-                if(GetDateTaken(md) != null)
-                {
-                    dateTimePicker.CustomFormat = "dd.MM.yyyy HH:mm:ss";
-                    dateTimePicker.Value = GetDateTaken(md).Value;
-                    dateTaken = GetDateTaken(md).Value.ToString("yyyy.MM.dd HH.mm.ss", System.Globalization.CultureInfo.InvariantCulture);
-                }
-                else
-                {
-                    dateTimePicker.CustomFormat = " ";
-                    dateTaken = "";
-                }
-
-                cMan = GetCamManufacturer(md);
-                cManText.Text = cMan;
-
-                cModel = GetCamModel(md);
-                cModelText.Text = cModel;
-
-                if (dateTaken != "" && cMan != "" && cModel != "")
-                {
-                    string newFileName = dateTaken + " " + cMan + " " + cModel;
-                    newPhotoNameLabel.Text = newFileName;
-                }
-                else
-                {
-                    newPhotoNameLabel.Text = "Can't generate foto name!";
-                }
-            }
-
-            dateTimePicker.Enabled = true;
-            cManText.Enabled = true;
-            cModelText.Enabled = true;
         }
 
         private void renameAllButton_Click(object sender, EventArgs e)
@@ -183,48 +117,75 @@ namespace RenameMyPhotos
         {
             listBox1.ClearSelected();
 
-            string[] pathParts = path.Split('\\');
-            string newPath = "";
-            string dateTaken, cMan, cModel;
+            PhotoInfo photo = new PhotoInfo(path);
 
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            string newFilePath = photo.GenerateFilePath();
+            if (newFilePath != "")
             {
-                BitmapSource img = BitmapFrame.Create(fs);
-                BitmapMetadata md = (BitmapMetadata)img.Metadata;
-
-                if (GetDateTaken(md) != null)
+                int index = 0;
+                while (File.Exists(newFilePath))
                 {
-                    dateTaken = GetDateTaken(md).Value.ToString("yyyy.MM.dd HH.mm.ss", System.Globalization.CultureInfo.InvariantCulture);
+                    newFilePath = photo.GenerateFilePath(++index);
                 }
-                else
-                {
-                    dateTaken = "";
-                }
-                cMan = GetCamManufacturer(md);
-                cModel = GetCamModel(md);
-
-                if (dateTaken != "" && cMan != "" && cModel != "")
-                {
-                    string newFileName = dateTaken + " " + cMan + " " + cModel;
-
-                    for (int i = 0; i < pathParts.Length - 1; i++)
-                    {
-                        newPath += pathParts[i] + "\\";
-                    }
-                    newPath += newFileName + ".jpg";
-                }
-
-                fs.Close();
-                fs.Dispose();
-            }
-
-            if (newPath != "")
-            {
-                File.Move(path, newPath);
+                File.Move(path, newFilePath);
             }
             else
             {
                 MessageBox.Show("Not enough metadata to generate new file name!");
+            }
+        }
+
+        private void SetView()
+        {
+            LoadTempPhotoImage(selectedPhoto.FilePath);
+
+            photoNameLabel.Text = selectedPhoto.FileName;
+            if(selectedPhoto.DateTakenDT != null)
+            {
+                dateTimePicker.CustomFormat = "dd.MM.yyyy HH:mm:ss";
+                dateTimePicker.Value = selectedPhoto.DateTakenDT.Value;
+            }
+            else
+            {
+                dateTimePicker.CustomFormat = " ";
+            }
+
+            cManText.Text = selectedPhoto.CameraManufacturer;
+            cModelText.Text = selectedPhoto.CameraModel;
+
+            string photoName = selectedPhoto.GenerateFileName();
+            if (photoName != "")
+            {
+                newPhotoNameLabel.Text = photoName;
+                if(selectedPhoto.FileName == photoName)
+                {
+                    newPhotoNameLabel.ForeColor = Color.LimeGreen;
+                }
+                else
+                {
+                    newPhotoNameLabel.ForeColor = Color.Silver;
+                }
+            }
+            else
+            {
+                newPhotoNameLabel.ForeColor = Color.Red;
+                newPhotoNameLabel.Text = "Can't generate foto name!";
+            }
+
+            renameSelectedButton.Enabled = true;
+            dateTimePicker.Enabled = true;
+            cManText.Enabled = true;
+            cModelText.Enabled = true;
+        }
+
+        private void LoadTempPhotoImage(string path)
+        {
+            string tempPhotoPath = path.Insert(path.LastIndexOf('.'), "_temp");
+            File.Copy(path, tempPhotoPath);
+
+            using (FileStream fs = new FileStream(tempPhotoPath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.DeleteOnClose)) //read
+            {
+                pictureBox1.Image = Image.FromStream(fs);
             }
         }
 
@@ -244,37 +205,7 @@ namespace RenameMyPhotos
             cModelText.Enabled = false;
             newPhotoNameLabel.Text = "";
             changeMetadataButton.Enabled = false;
-        }
-
-        private DateTime? GetDateTaken(BitmapMetadata md)
-        {
-            string dateTaken = md.DateTaken;
-            if (dateTaken != null)
-            {
-                DateTime dt = DateTime.ParseExact(dateTaken, "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                return dt;
-            }
-            return null;
-        }
-
-        private string GetCamManufacturer(BitmapMetadata md)
-        {
-            string cMan = md.CameraManufacturer;
-            if (cMan != null)
-            {
-                return cMan;
-            }
-            return "";
-        }
-
-        private string GetCamModel(BitmapMetadata md)
-        {
-            string cModel = md.CameraModel;
-            if (cModel != null)
-            {
-                return cModel;
-            }
-            return "";
+            renameSelectedButton.Enabled = false;
         }
 
         public void ChangeDateTaken(string path)
@@ -388,7 +319,7 @@ namespace RenameMyPhotos
 
         private void changeMetadataButton_Click(object sender, EventArgs e)
         {
-            ChangePropertyItems(currentFilePath, dateTimePicker.Value, cManText.Text, cModelText.Text);
+            ChangePropertyItems(selectedPhoto.FilePath, dateTimePicker.Value, cManText.Text, cModelText.Text);
         }
 
         private void metadataBoxes_TextChanged(object sender, EventArgs e)
