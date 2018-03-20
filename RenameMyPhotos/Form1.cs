@@ -19,6 +19,8 @@ namespace RenameMyPhotos
     {
         private PhotoInfo selectedPhoto;
 
+        private string currentDirectory = "";
+
         public Form1()
         {
             InitializeComponent();
@@ -53,19 +55,30 @@ namespace RenameMyPhotos
             if (Directory.Exists(path))
             {
                 currentDirectory = path;
-                string[] files;
+                
+                DirectoryInfo directoryInfo = new DirectoryInfo(textBox1.Text);
+                List<FileInfo> fileInfos;
                 if (recursiveCheckBox.Checked)
                 {
-                    files = Directory.EnumerateFiles(textBox1.Text, "*.*", SearchOption.AllDirectories).Where(s => s.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || s.EndsWith(".png", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    fileInfos = directoryInfo.GetFiles("*.*", SearchOption.AllDirectories)
+                        .OrderBy(f => f.LastWriteTime.Year <= 1601 ? f.CreationTime : f.LastWriteTime)
+                        .Where(s => s.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || s.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
+                        .ToList();
                 }
                 else
                 {
-                    files = Directory.EnumerateFiles(textBox1.Text, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || s.EndsWith(".png", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    fileInfos = directoryInfo.GetFiles("*.*", SearchOption.TopDirectoryOnly)
+                        .OrderBy(f => f.LastWriteTime.Year <= 1601 ? f.CreationTime : f.LastWriteTime)
+                        .Where(s => s.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || s.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
+                        .ToList();
                 }
 
-                if (files.Any())
+                if (fileInfos.Any())
                 {
-                    listBox1.Items.AddRange(files);
+                    foreach(FileInfo f in fileInfos)
+                    {
+                        listBox1.Items.Add(f.FullName);
+                    }
                     renameAllButton.Enabled = true;
                 }
                 else
@@ -93,6 +106,9 @@ namespace RenameMyPhotos
 
         private void renameAllButton_Click(object sender, EventArgs e)
         {
+            StringBuilder sb = new StringBuilder("Output log:\n");
+            int success = 0, fail = 0;
+
             ClearView();
             List<string> photoPaths = new List<string>();
             foreach (var item in listBox1.Items)
@@ -101,19 +117,34 @@ namespace RenameMyPhotos
             }
             foreach (var item in photoPaths)
             {
-                RenameFile(item);
+                if (RenameFile(item, sb) == true) success++;
+                else fail++;
             }
+
+            if (success > 0) sb.AppendLine("SUCCESSFULLY RENAMED " + success + " FILES.");
+            if (fail > 0) sb.AppendLine("COULD NOT RENAME " + fail + " FILES.");
+
+            Console.Write(sb);
+
             LoadFilenames(currentDirectory);
         }
 
         private void renameSelectedButton_Click(object sender, EventArgs e)
         {
+            StringBuilder sb = new StringBuilder("Output log:\n");
+
             ClearView();
-            RenameFile(listBox1.SelectedItem.ToString());
+            if (RenameFile(listBox1.SelectedItem.ToString(), sb) == true)
+                sb.AppendLine("SUCCESSFULLY RENAMED FILE.");
+            else
+                sb.AppendLine("COULD NOT RENAME FILE.");
+
+            Console.Write(sb);
+
             LoadFilenames(currentDirectory);
         }
 
-        private void RenameFile(string path)
+        private bool RenameFile(string path, StringBuilder outputString)
         {
             listBox1.ClearSelected();
 
@@ -128,10 +159,13 @@ namespace RenameMyPhotos
                     newFilePath = photo.GenerateFilePath(++index);
                 }
                 File.Move(path, newFilePath);
+                outputString.AppendLine("Generated new name and renamed file:\n" + path);
+                return true;
             }
             else
             {
-                MessageBox.Show("Not enough metadata to generate new file name!");
+                outputString.AppendLine("Not enough metadata to generate new name for file:\n" + path);
+                return false;
             }
         }
 
