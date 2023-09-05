@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 
 namespace RenameMyPhotos
@@ -34,8 +31,8 @@ namespace RenameMyPhotos
         {
             if(DateTakenString != "" && CameraManufacturer != "" && CameraModel != "")
             {
-                string fileName = DateTakenString + " " + CameraManufacturer + " " + CameraModel + " #";
-                if (index > 0) fileName += index; 
+                string fileName = "IMG_" + DateTakenString + "_" + CameraManufacturer + "-" + CameraModel;
+                if (index > 0) fileName += " #" + index;
                 return fileName; 
             }
             else
@@ -69,15 +66,23 @@ namespace RenameMyPhotos
                 DateTakenDT = GetDateTaken(md);
                 if (DateTakenDT != null)
                 {
-                    DateTakenString = GetDateTaken(md).Value.ToString("yyyy.MM.dd HH.mm.ss", System.Globalization.CultureInfo.InvariantCulture);
+                    DateTakenString = DateTakenDT.Value.ToString("yyyyMMdd_HHmmss", System.Globalization.CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                    DateTakenString = "";
+                    DateTakenDT = GuessDateTaken(FileName);
+                    if (DateTakenDT != null)
+                    {
+                        DateTakenString = DateTakenDT.Value.ToString("yyyyMMdd_HHmmss", System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                    else
+                    {
+                        DateTakenString = "";
+                    }
                 }
 
-                CameraManufacturer = GetCameraManufacturer(md);
-                CameraModel = GetCameraModel(md);
+                CameraManufacturer = GetCameraManufacturer(md).Replace(" ", "");
+                CameraModel = GetCameraModel(md).Replace(" ", "");
             }
         }
 
@@ -88,6 +93,38 @@ namespace RenameMyPhotos
             {
                 DateTime dt = DateTime.ParseExact(dateTaken, "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                 return dt;
+            }
+            return null;
+        }
+
+        private DateTime? GuessDateTaken(string fileName)
+        {
+            if (!String.IsNullOrEmpty(fileName))
+            {
+                Regex dateTimeRegex = new Regex("[0-9]{4}[0-9]{1,2}[0-9]{1,2}");
+                MatchCollection extractedDateTime = dateTimeRegex.Matches(fileName);
+                string date = "", time = "", dateTime = "";
+                if (extractedDateTime.Count > 0)
+                    date = extractedDateTime[0].Value;
+                if (extractedDateTime.Count > 1)
+                    time = extractedDateTime[1].Value;
+                if(date != "")
+                {
+                    dateTime = date;
+                    if(time != "")
+                        dateTime += time;  
+                    else
+                        dateTime += "000000";
+                }
+                try
+                {
+                    DateTime dt = DateTime.ParseExact(dateTime, "yyyyMMddHHmmss", System.Globalization.CultureInfo.InvariantCulture);
+                    return dt;
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
             return null;
         }

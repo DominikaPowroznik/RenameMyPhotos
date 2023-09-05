@@ -151,7 +151,7 @@ namespace RenameMyPhotos
             PhotoInfo photo = new PhotoInfo(path);
 
             string newFilePath = photo.GenerateFilePath();
-            if (newFilePath != "")
+            if (newFilePath != "" && newFilePath != path)
             {
                 int index = 0;
                 while (File.Exists(newFilePath))
